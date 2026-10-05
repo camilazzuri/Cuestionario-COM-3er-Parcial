@@ -1,1 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuestionario Comunicación de Datos</title>
+<style>
+:root{--bg:#0e1621;--card:#16212f;--line:#263548;--tx:#e6edf5;--mut:#8fa1b8;--ac:#3fc1c9;--ok:#2fa36b;--bad:#d9534f;--par:#e0a82e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.6rem;margin:.2em 0}
+.sub{color:var(--mut);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stats div{flex:1;min-width:120px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}
+.stats b{display:block;font-size:1.4rem}
+button{font:inherit;color:var(--tx);background:#1f2d40;border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer}
+button:hover:not(:disabled){border-color:var(--ac)}
+button:disabled{opacity:.4;cursor:default}
+button:focus-visible,label:focus-within{outline:2px solid var(--ac);outline-offset:2px}
+.pri{background:var(--ac);color:#06232a;border-color:var(--ac);font-weight:600}
+.grid{display:grid;gap:10px}
+.grid button{text-align:left}
+label{margin-right:16px;cursor:pointer}
+.hide{display:none}
+.top{display:flex;justify-content:space-between;color:var(--mut);margin-bottom:8px}
+.q{font-size:1.15rem;margin:8px 0 12px}
+.q img{display:block;max-width:100%;margin-top:12px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.hint{color:var(--mut);font-size:.9rem;margin-bottom:8px}
+.op{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px}
+.op.sel{border-color:var(--ac);background:#1a3a44}
+.op.ok{border-color:var(--ok);background:#173d2c}
+.op.bad{border-color:var(--bad);background:#43201f}
+.op.miss{border-color:var(--par);border-style:dashed}
+.exp{margin-top:12px;padding:12px;border-left:3px solid var(--ac);background:#122431}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.nav .sp{flex:1}
+.res{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.res div{flex:1;min-width:120px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.res b{display:block;font-size:1.5rem}
+.big{font-size:2.6rem;font-weight:700;color:var(--ac)}
+@media(max-width:480px){.nav button{flex:1}}
+</style>
+</head>
+<body>
+<main>
 
+<section id="menu">
+  <h1>📡 Cuestionario de Comunicación de Datos</h1>
+  <p class="sub">Práctica para el parcial</p>
+  <div class="stats">
+    <div>📚 Total<b id="c-total">0</b></div>
+    <div>⭐ Marcadas<b id="c-marc">0</b></div>
+    <div>❌ Por reintentar<b id="c-errs">0</b></div>
+  </div>
+  <div class="card">
+    <b>⌨️ Atajos:</b> ← Anterior · → Siguiente · Enter Verificar / Avanzar · 1-9 Elegir opción
+  </div>
+  <div class="card">
+    <b>⚙️ Aleatoriedad</b><br>
+    <label><input type="checkbox" id="sq"> 🔀 Mezclar preguntas</label>
+    <label><input type="checkbox" id="sa"> 🔀 Mezclar respuestas</label>
+  </div>
+  <h3>🎓 Evaluación y práctica</h3>
+  <div class="grid">
+    <button class="pri" id="b-sim">⏱️ Simulacro de parcial (20 preguntas)</button>
+    <button id="b-all">📋 Todas las preguntas</button>
+  </div>
+  <h3>⭐ Práctica especial</h3>
+  <div class="grid">
+    <button id="b-marc">⭐ Practicar marcadas</button>
+    <button id="b-errs">🔄 Practicar errores</button>
+    <button id="b-blk">📦 Practicar por bloques de 10</button>
+  </div>
+  <div id="blocks" class="grid hide" style="margin-top:10px"></div>
+</section>
+
+<section id="quiz" class="hide">
+  <div class="top"><span id="prog"></span><span id="clock">⏱️ 00:00</span></div>
+  <div class="card">
+    <div class="q" id="qtext"></div>
+    <div class="hint" id="qhint"></div>
+    <div id="ops"></div>
+    <div class="exp hide" id="exp"></div>
+  </div>
+  <div class="nav">
+    <button id="b-menu">🏠 Menú</button>
+    <button id="b-star">☆ Marcar</button>
+    <span class="sp"></span>
+    <button id="b-prev">⬅️ Anterior</button>
+    <button id="b-ver" class="pri">✅ Verificar ↵</button>
+    <button id="b-next">Siguiente ➡️</button>
+    <button id="b-fin">📊 Finalizar</button>
+  </div>
+</section>
+
+<section id="result" class="hide">
+  <h2>📊 Resumen de resultados</h2>
+  <div class="card" style="text-align:center">
+    <div class="big" id="r-pct">0%</div>
+    <div id="r-pts"></div>
+  </div>
+  <div class="res">
+    <div><b id="r-ok">0</b>Completas (1 pt)</div>
+    <div><b id="r-par">0</b>Parciales</div>
+    <div><b id="r-bad">0</b>Incorrectas</div>
+    <div><b id="r-time">00:00</b>Tiempo</div>
+  </div>
+  <div class="grid">
+    <button id="r-menu" class="pri">🏠 Volver al menú</button>
+    <button id="r-errs">🔄 Reintentar errores</button>
+    <button id="r-again">🔁 Repetir mismo set</button>
+    <button id="r-marc">⭐ Practicar marcadas</button>
+  </div>
+</section>
+
+</main>
+<script src="preguntas.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const load = k => { try { return JSON.parse(localStorage.getItem(k) || "[]"); } catch (e) { return []; } };
+let marc = load("cd_marc"), errs = load("cd_errs"), S = null;
+
+const saveAll = () => {
+  try { localStorage.setItem("cd_marc", JSON.stringify(marc)); localStorage.setItem("cd_errs", JSON.stringify(errs)); } catch (e) {}
+};
+const shuf = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const fmt = s => String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+const show = id => ["menu", "quiz", "result"].forEach(s => $(s).classList.toggle("hide", s !== id));
+
+function menu() {
+  if (S) clearInterval(S.tm);
+  show("menu");
+  $("c-total").textContent = PREGUNTAS.length;
+  $("c-marc").textContent = marc.length;
+  $("c-errs").textContent = errs.length;
+  const n = Math.ceil(PREGUNTAS.length / 10);
+  $("blocks").innerHTML = "";
+  for (let k = 0; k < n; k++) {
+    const b = document.createElement("button");
+    b.textContent = "Bloque " + (k + 1) + " (" + (k * 10 + 1) + "–" + Math.min(PREGUNTAS.length, (k + 1) * 10) + ")";
+    b.onclick = () => start(PREGUNTAS.slice(k * 10, k * 10 + 10));
+    $("blocks").appendChild(b);
+  }
+}
+
+function start(list) {
+  if (!list.length) { alert("No hay preguntas en este modo todavía."); return; }
+  if (S) clearInterval(S.tm);
+  const orig = $("sq").checked ? shuf(list) : list;
+  const set = orig.map(q => {
+    let ops = q.opciones.map((t, k) => ({ t, ok: q.correctas.includes(k) }));
+    if ($("sa").checked) ops = shuf(ops);
+    return { ...q, ops, nC: ops.filter(o => o.ok).length };
+  });
+  S = { orig: list, set, i: 0, t: 0, res: set.map(() => ({ sel: [], done: false, score: 0 })) };
+  S.tm = setInterval(() => { S.t++; $("clock").textContent = "⏱️ " + fmt(S.t); }, 1000);
+  show("quiz");
+  render();
+}
+
+function render() {
+  const q = S.set[S.i], r = S.res[S.i];
+  $("prog").textContent = "Pregunta " + (S.i + 1) + " de " + S.set.length;
+  $("clock").textContent = "⏱️ " + fmt(S.t);
+  $("qtext").innerHTML = "";
+  const p = document.createElement("div");
+  p.textContent = q.texto;
+  $("qtext").appendChild(p);
+  if (q.imagen) {
+    const im = document.createElement("img");
+    im.src = q.imagen; im.alt = "Imagen de la pregunta";
+    $("qtext").appendChild(im);
+  }
+  $("qhint").textContent = q.nC > 1 ? "Elegí " + q.nC + " respuestas correctas" : "Elegí una respuesta";
+  $("ops").innerHTML = "";
+  q.ops.forEach((o, k) => {
+    const b = document.createElement("button");
+    b.className = "op";
+    b.textContent = (k + 1) + ". " + o.t;
+    const sel = r.sel.includes(k);
+    if (r.done) {
+      b.disabled = true;
+      if (o.ok && sel) b.classList.add("ok");
+      else if (o.ok) b.classList.add("miss");
+      else if (sel) b.classList.add("bad");
+    } else if (sel) b.classList.add("sel");
+    b.onclick = () => pick(k);
+    $("ops").appendChild(b);
+  });
+  $("exp").classList.toggle("hide", !(r.done && q.explicacion));
+  $("exp").textContent = q.explicacion || "";
+  $("b-star").textContent = marc.includes(q.id) ? "⭐ Marcada" : "☆ Marcar";
+  $("b-prev").disabled = S.i === 0;
+  $("b-next").disabled = S.i === S.set.length - 1;
+  $("b-ver").disabled = r.done;
+}
+
+function pick(k) {
+  const r = S.res[S.i], q = S.set[S.i];
+  if (r.done) return;
+  if (q.nC > 1) r.sel = r.sel.includes(k) ? r.sel.filter(x => x !== k) : [...r.sel, k];
+  else r.sel = [k];
+  render();
+}
+
+function verify() {
+  const r = S.res[S.i], q = S.set[S.i];
+  if (r.done || !r.sel.length) return;
+  const hits = r.sel.filter(k => q.ops[k].ok).length, wrong = r.sel.length - hits;
+  r.score = hits === q.nC && wrong === 0 ? 1 : Math.max(0, (hits - wrong) / q.nC);
+  r.done = true;
+  if (r.score < 1) { if (!errs.includes(q.id)) errs.push(q.id); }
+  else errs = errs.filter(x => x !== q.id);
+  saveAll();
+  render();
+}
+
+function star() {
+  const id = S.set[S.i].id;
+  marc = marc.includes(id) ? marc.filter(x => x !== id) : [...marc, id];
+  saveAll();
+  render();
+}
+
+function finish() {
+  clearInterval(S.tm);
+  let ok = 0, par = 0, bad = 0, pts = 0;
+  S.res.forEach(r => { pts += r.score; if (r.score === 1) ok++; else if (r.score > 0) par++; else bad++; });
+  const tot = S.set.length;
+  $("r-pct").textContent = Math.round(pts / tot * 100) + "%";
+  $("r-pts").textContent = pts.toFixed(2) + " / " + tot.toFixed(2) + " pts";
+  $("r-ok").textContent = ok; $("r-par").textContent = par; $("r-bad").textContent = bad;
+  $("r-time").textContent = fmt(S.t);
+  show("result");
+}
+
+const byIds = ids => PREGUNTAS.filter(q => ids.includes(q.id));
+$("b-sim").onclick = () => start(shuf(PREGUNTAS).slice(0, 20));
+$("b-all").onclick = () => start(PREGUNTAS);
+$("b-marc").onclick = () => start(byIds(marc));
+$("b-errs").onclick = () => start(byIds(errs));
+$("b-blk").onclick = () => $("blocks").classList.toggle("hide");
+$("b-menu").onclick = menu;
+$("b-star").onclick = star;
+$("b-prev").onclick = () => { S.i--; render(); };
+$("b-next").onclick = () => { S.i++; render(); };
+$("b-ver").onclick = verify;
+$("b-fin").onclick = finish;
+$("r-menu").onclick = menu;
+$("r-again").onclick = () => start(S.orig);
+$("r-marc").onclick = () => start(byIds(marc));
+$("r-errs").onclick = () => start(S.set.filter((q, i) => S.res[i].score < 1));
+
+document.addEventListener("keydown", e => {
+  if ($("quiz").classList.contains("hide")) return;
+  if (e.key === "ArrowLeft" && S.i > 0) { S.i--; render(); }
+  else if (e.key === "ArrowRight" && S.i < S.set.length - 1) { S.i++; render(); }
+  else if (e.key === "Enter") {
+    e.preventDefault();
+    if (!S.res[S.i].done) verify();
+    else if (S.i < S.set.length - 1) { S.i++; render(); }
+    else finish();
+  } else if (/^[1-9]$/.test(e.key)) {
+    const k = Number(e.key) - 1;
+    if (k < S.set[S.i].ops.length) pick(k);
+  }
+});
+
+menu();
+</script>
+</body>
+</html>
