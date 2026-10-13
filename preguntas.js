@@ -1,40 +1,29 @@
-// =====================================================
-//  AQUÍ CARGÁS TUS PREGUNTAS. Es el único archivo que tenés que editar.
-//
-//  Cada pregunta es un bloque { ... } separado por coma.
-//  - id:          número único (1, 2, 3...). No repitas ni cambies ids ya usados.
-//  - texto:       el enunciado de la pregunta
-//  - imagen:      (opcional) ruta de la imagen, ej: "img/pregunta2.png". Borrá la línea si no hay.
-//  - opciones:    lista de respuestas posibles, entre comillas y separadas por coma
-//  - correctas:   posiciones de las correctas, contando desde 0 (la primera opción es 0)
-//                 Una sola correcta: [1]      Varias correctas: [0, 2]
-//  - explicacion: (opcional) se muestra después de verificar
-// =====================================================
-const PREGUNTAS = [
-  {
-    id: 1,
-    texto: "¿Qué tipo de modulación varía la frecuencia de la portadora según la señal moduladora?",
-    opciones: ["AM", "FM", "ASK", "PCM"],
-    correctas: [1],
-    explicacion: "En FM la frecuencia instantánea de la portadora cambia con la amplitud de la señal moduladora."
-  },
-  {
-    id: 2,
-    texto: "Seleccioná las afirmaciones correctas sobre el teorema de muestreo de Nyquist.",
-    opciones: [
-      "La frecuencia de muestreo debe ser al menos el doble de la frecuencia máxima de la señal",
-      "Si se muestrea por debajo de ese límite aparece aliasing",
-      "Permite muestrear a cualquier frecuencia sin pérdida de información",
-      "Solo se aplica a señales digitales"
-    ],
-    correctas: [0, 1],
-    explicacion: "fs ≥ 2·fmax evita el aliasing."
-  },
-  {
-    id: 3,
-    texto: "¿Qué muestra el siguiente diagrama?",
-    imagen: "img/ejemplo.png",   // poné tu imagen en la carpeta img/ o borrá esta línea
-    opciones: ["Una señal AM", "Una señal FM", "Una señal digital NRZ"],
-    correctas: [2]
-  }
+// Tipos: "single" (una opción), "multi" (casillas), "tf" (verdadero/falso), "text" (respuesta escrita)
+// correct: posiciones desde 0 · answers: respuestas aceptadas en "text" · image: ruta opcional
+const ALL_QUESTIONS = [
+{id:1,type:"multi",text:"Los siguientes gráficos corresponden a distintos diagramas de ojos de señales analizadas con un osciloscopio. A cada uno le corresponde un determinado valor de roll-off: α = 0, α = 0.5 y α = 1. Determine en forma comparativa cuál es el valor que corresponde a cada gráfico. Determine en cuál de ellos se aprecia la presencia de ISI.",image:"img/ojos1.png",options:["En el gráfico A tiene ISI","Gráfico A = α = 0.5","Gráfico B = α = 0.5","Gráfico C = 0","Gráfico A = 0","Gráfico B = 1","En el gráfico B tiene ISI","En el gráfico C tiene ISI"],correct:[1,3,5]},
+{id:2,type:"single",text:"Los siguientes gráficos corresponden a distintos diagramas de ojos de señales analizadas con un osciloscopio. ¿Cuál de ellos (A, B o C) corresponde a un roll-off α = 1 (el más \"abierto\", sin ISI)?",image:"img/ojos2.png",options:["Gráfico A","Gráfico B","Gráfico C","Ninguno, todos son iguales"],correct:[1]},
+{id:3,type:"single",text:"Determine cuál de las siguientes capturas de pantalla de un osciloscopio muestra una señal con ISI.",image:"img/ojos3.png",options:["Los gráficos A y C","El gráfico A","El gráfico B","El gráfico C"],correct:[0]},
+{id:4,type:"single",text:"¿Cuál de los siguientes, son instrumentos con los cuales se realiza la certificación de un cableado?",options:["OTDR Multímetro digital","Probadores de cable UTP","Certificadores de cableado","Analizador de espectro"],correct:[2]},
+{id:5,type:"multi",text:"¿Cuáles de los siguientes, son instrumentos con los cuales se puede comprobar si un cable de conexión (patch cord) está correctamente armado? Seleccione una o más de una:",options:["Analizador de espectro","Certificadores de cableado","OTDR","Multímetro digital","Probadores de cable UTP (LAN Tester)"],correct:[1,4]},
+{id:6,type:"tf",text:"El NEXT es la interferencia electromagnética producida por una señal de radio frecuencia externa, sobre la señal de que se emite por un par del cable, medida en el extremo cercano al emisor",options:["Verdadero","Falso"],correct:[1]},
+{id:7,type:"tf",text:"El NEXT es la interferencia de la señal de un par sobre otro dentro del mismo cable, medida en el extremo lejano de emisor",options:["Verdadero","Falso"],correct:[1]},
+{id:8,type:"multi",text:"Indique qué factores pueden producir un aumento del NEXT:",options:["Demasiado retiro del plástico protector de los cables","Humedad en los conductores por los que pasan los cables","Terminaciones de cables mal armadas (demasiado destrenzado de los pares)","Disminución de la sección de los conductores","Mala conexión del blindaje","La frecuencia de la señal","Mal crimpeado de los conectores"],correct:[2,4,5]},
+{id:9,type:"single",text:"¿Cuál fue la generación de telecomunicaciones móviles que permitió el acceso a Internet desde los terminales de telefonía?",options:["AMPS","2G","3G","GSM","1G"],correct:[2]},
+{id:10,type:"multi",text:"¿Cuáles de los siguientes métodos de acceso múltiple son empleados por los actuales sistemas de telefonía celular móvil 3G y 4G?",options:["5G","FDMA","GDMA","DAMA","CDMA"],correct:[1,2,4]},
+{id:11,type:"single",text:"En _____ se llevan a cabo tareas de normalización y coordinación a nivel internacional en redes de telecomunicaciones celulares móviles:",options:["IEEE","ANSI/EIA/TIA","ISO","ENACOM","FCC","ITU"],correct:[5]},
+{id:12,type:"single",text:"Indicar a qué tipo de perturbación hace referencia la siguiente figura:",image:"img/anext.png",options:["PSFEXT","ANEXT","PSNEXT","Mapa de cableado incorrecto","Interferencias electromagnéticas externas (EMI)"],correct:[1]},
+{id:13,type:"single",text:"¿Cómo se llama el proceso de transferir una llamada en curso entre dos células cuando el móvil se desplaza?",options:["Roaming","Hand Over","Clusterización","Sectorización"],correct:[1]},
+{id:14,type:"tf",text:"Si necesito implementar un sistema de comunicaciones de gran ancho de banda y con estabilidad en la tasa de bits, preferiré instalar una red con cableado estructurado en lugar de una red inalámbrica.",options:["Verdadero","Falso"],correct:[0]},
+{id:15,type:"multi",text:"¿Cuáles de las siguientes son causas que provocan la atenuación de una señal en un conductor de Fibra óptica?",options:["Absorción intrínseca","Cantidad de longitudes de onda multiplexadas dentro de la Fibra Optica","Humedad","Material del revestimiento del cable de fibra óptica","Profundidad de enterramiento del cable de fibra óptica","Tipo de terreno donde se instala el conductor de fibra óptica","Microcurvaturas en la instalación del conductor de fibra óptica","Dispersión Rayleigh"],correct:[0,6,7]},
+{id:16,type:"multi",text:"¿Cuáles de los siguientes se pueden considerar factores que aumentan la atenuación en un conductor de fibra óptica? Seleccione una o más de una:",options:["Bandas de absorción","Excesiva cantidad de canales multiplexados en WDM","Radios de curvatura inapropiados (demasiado pequeños)","Conductores de fibra óptica próximos que conducen otras señales de comunicaciones","Radiación nuclear","Humedad ambiente","Dispersión cromática","Interferencias electromagnéticas externas"],correct:[0,2,4,6]},
+{id:17,type:"single",text:"Identifique el tipo de cable",image:"img/cables1.png",options:["UTP, Coaxil, FTP","UTP, FTP, STP","FTP, UTP, CTP","Coaxil, UTP, FTP"],correct:[1]},
+{id:18,type:"text",text:"¿Cuál es la longitud máxima que puede tener el enlace permanente? (Indique sólo con números, sin unidades)",answers:["90"]},
+{id:19,type:"single",text:"¿Cuál es la longitud máxima que puede tener el enlace permanente (permanent link)?",options:["120","100","90","70"],correct:[2]},
+{id:20,type:"single",text:"¿Cuál es la longitud máxima permitida independientemente del medio de transmisión en el Cableado Horizontal?",options:["100","90","45","105"],correct:[1]},
+{id:21,type:"multi",text:"¿Cuáles son los tres elementos básicos de un sistema de comunicaciones celulares móviles? Seleccioná una o más opciones:",options:["Estación base","Determinación del costo del servicio","Centro de conmutación de móviles","Hexágono","Terminal móvil","Regulación y estandarización","Generación"],correct:[0,2,4]},
+{id:22,type:"single",text:"¿Cuál es el principal motivo por el cual se produce un ensanchamiento del pulso de señal conducido por una fibra óptica?",options:["Dopado de la fibra","Dispersión cromática (modal)","Tipo de revestimiento de la fibra","Ancho del núcleo","Atenuación"],correct:[1]},
+{id:23,type:"multi",text:"¿Cuáles son los tres elementos básicos de un sistema de comunicaciones celulares móviles? Seleccione una o más de una:",options:["Determinación del costo del servicio","Terminal móvil","Centro de conmutación de móviles","Regulación y estandarizacón","Hexágono","Estación base","Generación"],correct:[1,2,5]},
+{id:24,type:"tf",text:"La ganancia del sistema celular de comunicaciones se basa en instalar muy poca cantidad de estaciones base, aumentando la potencia de cada una de ellas, para poder atender a móviles más alejados",options:["Verdadero","Falso"],correct:[1]},
+{id:25,type:"text",text:"En la siguiente figura, indicar cuántos clusters hay (escriba el NUMERO)",image:"img/clusters.png",answers:["7"],explanation:"En un sistema celular clásico, el patrón de reutilización de frecuencias sin interferencia cocanal mínima que permite cubrir el plano sin superposición usando celdas hexagonales es N=7 (patrón i=2, j=1 o i=1, j=2), por lo que el mapa muestra un clúster de 7 celdas."}
 ];
