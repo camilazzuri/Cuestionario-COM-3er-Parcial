@@ -4,7 +4,7 @@ ALL_QUESTIONS.push(
 {id:52,type:"text",text:"¿Cuál de las capas se ocupa de proporcionar mecanismos de control de acceso a medios compartidos de red?",answers:["capa de enlace","enlace","capa de enlace de datos","enlace de datos","capa 2"]},
 {id:53,type:"single",text:"¿Cuál de las capas del modelo OSI se encarga de resolver problemas por falta de fiabilidad en circuitos como consecuencia de errores en datos recibidos?",options:["Aplicacion","Enlace","Red","Fisica","Transporte"],correct:[1]},
 {id:54,type:"single",text:"El modelo OSI es: (Parcial k1 - 2021)",options:["Un estándar de comunicaciones","Un lineamiento funcional para las tareas de comunicaciones","Una norma de aplicación"],correct:[1]},
-{id:55,type:"single",text:"La transmisión de datos físicamente en el modelo OSI se realiza: (VER)",options:["Horizontalmente","Vertical y Horizontal","Verticalmente"],correct:[1]},
+{id:55,type:"single",text:"La transmisión de datos físicamente en el modelo OSI se realiza:",options:["Horizontalmente","Vertical y Horizontal","Verticalmente"],correct:[1]},
 {id:56,type:"single",text:"¿En qué capa del modelo OSI se debe establecer los niveles de modulación de una señal? (Parcial k4 - k5 2020)",options:["Capa física y de red","Capa física y de enlace","Capa de red y de transporte","Capa de sesión y de enlace","Capa de presentación y aplicación","Ninguna es correcta"],correct:[5],explanation:"(Capa física únicamente)"},
 {id:57,type:"single",text:"En qué nivel OSI actúan los repetidores (Pregunta que sale si o si)",options:["Físico","Enlace","Transporte","Red"],correct:[0]},
 {id:58,type:"single",text:"¿En qué capa de OSI se utiliza OFDM? (Parcial k4 - k5 2020)",options:["Capa 1","Capa 2","Capa 3","Capa 4","En ninguna","En todas"],correct:[0]},
