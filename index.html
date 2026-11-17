@@ -130,7 +130,7 @@ input:checked+.slider:before{transform:translateX(22px)}
 
 <div id="results"><div class="rcard"><h2>📊 Resumen de Resultados</h2><p style="color:var(--mut);margin-bottom:15px">Puntuación obtenida en esta sesión</p>
 <div id="gbox"></div><div class="circle" id="circle"><span id="pct">0%</span><small id="det"></small></div>
-<div class="rstats"><div class="sbox"><div class="v" style="color:var(--ok)" id="s-ok">0</div><div class="l">Completas (1.0 pt)</div></div><div class="sbox"><div class="v" style="color:var(--warn)" id="s-par">0</div><div class="l">Parciales (&gt;0 pt)</div></div><div class="sbox"><div class="v" style="color:var(--bad)" id="s-no">0</div><div class="l">Incorrectas (0 pt)</div></div><div class="sbox" id="s-tbox" style="display:none"><div class="v" style="color:#60a5fa" id="s-t">00:00</div><div class="l">Tiempo empleado</div></div></div>
+<div class="rstats"><div class="sbox"><div class="v" style="color:var(--ok)" id="s-ok">0</div><div class="l">Completas (1.0 pt)</div></div><div class="sbox"><div class="v" style="color:var(--warn)" id="s-par">0</div><div class="l">Parciales (>0 pt)</div></div><div class="sbox"><div class="v" style="color:var(--bad)" id="s-no">0</div><div class="l">Incorrectas (0 pt)</div></div><div class="sbox" id="s-tbox" style="display:none"><div class="v" style="color:#60a5fa" id="s-t">00:00</div><div class="l">Tiempo empleado</div></div></div>
 <div class="menu-grid"><button class="btn btn-nav" onclick="menu()">🏠 Volver al menú</button><button class="btn btn-bad" onclick="start('retry')">🔄 Reintentar errores</button><button class="btn btn-pri" onclick="start(last[0],last[1])">🔁 Repetir mismo set</button><button class="btn btn-nav" onclick="start('marked')" style="border-color:var(--warn);color:var(--star)">⭐ Practicar marcadas</button></div></div></div>
 </div>
 
@@ -141,6 +141,8 @@ input:checked+.slider:before{transform:translateX(22px)}
 <script src="preguntas4.js" onerror="void 0"></script>
 <script src="preguntas5.js" onerror="void 0"></script>
 <script src="preguntas6.js" onerror="void 0"></script>
+<script src="preguntas7.js" onerror="void 0"></script>
+<script src="preguntas8.js" onerror="void 0"></script>
 <script>
 // Nota UTN del simulacro (ajustá los porcentajes si tu cátedra usa otros)
 const PROMO=80, APROB=60;
