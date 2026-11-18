@@ -1,7 +1,7 @@
 ALL_QUESTIONS.push(
 {id:144,type:"multi",text:"¿Cómo se llama el proceso de movimiento de los datos origen-destino? (más de una posible) (Parcial k4 - k5 2020)",options:["Transmisión horizontal","Transmisión vertical","Enrutamiento","Comunicación","Segmentación","Ninguno correcto"],correct:[2,3]},
-{id:145,type:"single",text:"¿Cuál es el estándar propuesto por la IEEE para para las redes inalámbricas que operan en 2.4 GHz? 2/2 (Parcial k4 - k5 2020)",options:["IEEE 802.11","IEEE 802.11b","IEEE 802.11a","IEEE 802.11ac"],correct:[1]},
-{id:146,type:"single",text:"¿Cuál es el estándar propuesto por la IEEE para para las redes inalámbricas? 1/2 (Parcial k4 - k5 2020)",options:["IEEE 802.11","IEEE 802.2","IEEE 802.3","IEEE 802.4","IEEE 802.5Q"],correct:[0]},
+{id:145,type:"single",text:"¿Cuál es el estándar propuesto por la IEEE para las redes inalámbricas que operan en 2.4 GHz? 2/2 (Parcial k4 - k5 2020)",options:["IEEE 802.11","IEEE 802.11b","IEEE 802.11a","IEEE 802.11ac"],correct:[1]},
+{id:146,type:"single",text:"¿Cuál es el estándar propuesto por la IEEE para las redes inalámbricas? 1/2 (Parcial k4 - k5 2020)",options:["IEEE 802.11","IEEE 802.2","IEEE 802.3","IEEE 802.4","IEEE 802.5Q"],correct:[0]},
 {id:147,type:"single",text:"En la tecnología VDSL2 los canales de datos se filtran en la línea de acceso con: (Parcial k4 - k5 2020)",options:["Filtro pasa bajo","Filtro pasa alto","Filtro pasa banda","Filtro elimina banda"],correct:[1]},
 {id:148,type:"tf",text:"El splitter conecta las señales de alta frecuencia con el sistema POTS y las señales de baja frecuencia con el sistema ADSL",options:["Verdadero","Falso"],correct:[1]},
 {id:149,type:"single",text:"¿Cómo está constituida la IDU? (Parcial k4 - 2021)",options:["PDU","ICI y SDU","Interface y SAP","SAP y SDU","Ninguna es correcta"],correct:[1]},
